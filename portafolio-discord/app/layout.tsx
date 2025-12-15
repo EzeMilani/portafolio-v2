@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Rubik, Nunito_Sans } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
 
-// Fuente principal (Cuerpo del texto)
-const inter = Inter({
+// Fuente para Cuerpo (Body) - Friendly & Legible
+const nunito = Nunito_Sans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["300", "400", "600"],
+  variable: "--font-nunito",
 });
 
-// Fuente del Logo (Más gruesa, pesos 700 y 800 como en tu CSS original)
-const montserrat = Montserrat({
+// Fuente para Títulos (Headings) - Friendly & Modern
+const rubik = Rubik({
   subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-montserrat",
+  weight: ["500", "700", "900"],
+  variable: "--font-rubik",
 });
 
 export const metadata: Metadata = {
@@ -26,10 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
-      {/* Aquí aplicamos el fondo oscuro global y el color de texto blanco */}
-      <body className={`${inter.variable} ${montserrat.variable} bg-bg text-text antialiased`}>
-        {children}
+    <html lang="es" suppressHydrationWarning>
+      {/* suppressHydrationWarning añadido para next-themes */}
+      <body className={`${nunito.variable} ${rubik.variable} bg-bg text-text antialiased font-sans flex flex-col min-h-screen transition-colors duration-300`}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

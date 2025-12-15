@@ -2,51 +2,42 @@
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-const Education = () => {
-    const educationData = [
+const Experience = () => {
+    const experienceData = [
         {
-            year: "2017",
-            title: "Técnico en Automotores | Secundaria Completa",
-            institution: "I.P.E.T. N° 49 Domingo Faustino Sarmiento.",
-            location: "Villa María, Córdoba, Argentina."
-        },
-        {
-            year: "2025 Actualidad",
-            title: "Técnico Universitario en Desarrollo de Software (En curso 1.er año)",
-            institution: "Escuela Normal Superior Dalmacio Vélez Sarsfield.",
+            year: "2020 - Actualidad",
+            title: "Actualmente trabajando en PAUNY S.A",
             location: "Las Varillas, Córdoba, Argentina."
         }
     ];
 
     return (
-        <section id="formacion" className="w-full max-w-[1050px] px-[20px] py-[100px] scroll-mt-[85px] text-center">
-            {/* Título - USANDO INTER (font-sans) NO Heading */}
+        <section id="experiencia" className="w-full max-w-[1050px] px-[20px] py-[40px] scroll-mt-[85px] text-center">
+            {/* Título - USANDO INTER (font-sans) */}
             <motion.h2
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-[2.5rem] font-bold text-primary text-center mb-[1.5rem] font-sans"
+                className="text-[2.5rem] font-sans font-bold text-primary text-center mb-[1.5rem]"
             >
-                Formación
+                Experiencias
             </motion.h2>
 
-            {/* Lista de Tarjetas */}
             <div className="flex flex-col gap-[20px]">
-                {educationData.map((item, index) => (
+                {experienceData.map((item, index) => (
                     <motion.div
                         key={index}
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
+                        transition={{ duration: 0.5 }}
                         className="education-item bg-sidebar p-[25px] rounded-[15px] shadow-[0_5px_15px_rgba(0,0,0,0.2)] hover:-translate-y-[8px] hover:shadow-[0_10px_25px_var(--color-Shadow)] transition-all duration-300 text-left"
                     >
                         <h3 className="text-[1.6rem] font-sans font-bold text-primary mb-[10px]">
                             {item.title}
                         </h3>
                         <p className="text-subtext text-[1rem] mb-[5px] font-sans leading-[1.8]">
-                            {item.institution} <span className="font-bold">- {item.year}</span>
+                            {item.year}
                         </p>
                         <div className="location flex items-center gap-[5px] text-[0.9rem] text-subtext mt-[5px]">
                             <FaMapMarkerAlt className="text-primary text-[0.9rem]" />
@@ -59,4 +50,4 @@ const Education = () => {
     );
 };
 
-export default Education;
+export default Experience;

@@ -6,24 +6,23 @@ const config: Config = {
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
-        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {
-                // TUS COLORES ORIGINALES (Copiados de styles.css)
-                bg: "#1A1A2E",             // var(--color-bg)
-                sidebar: "#282A36",        // var(--color-sidebar)
-                primary: "#4A90E2",        // var(--color-primary)
-                "primary-hover": "#2763ad",// var(--color-hover)
-                text: "#FFFFFF",           // var(--color-text)
-                subtext: "#B0B3BC",        // var(--color-subtext)
-                shadow: "#3C7DCF",         // var(--color-Shadow)
+                bg: 'var(--bg)',
+                sidebar: 'var(--sidebar)',
+                primary: 'var(--primary)',
+                'primary-hover': 'var(--primary)', // Usamos la misma variable por ahora, o podríamos definir una --primary-hover
+                text: 'var(--text)',
+                subtext: 'var(--subtext)',
+                shadow: 'var(--shadow)', // Mapeamos shadow a la variable
             },
             fontFamily: {
-                sans: ['var(--font-inter)'],      // Para todo el texto
-                heading: ['var(--font-montserrat)'], // Para el Logo "Ezequiel Milani"
+                heading: ['var(--font-rubik)', 'sans-serif'],
+                sans: ['var(--font-nunito)', 'sans-serif'],
             },
         },
     },

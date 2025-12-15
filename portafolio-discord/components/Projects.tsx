@@ -1,91 +1,85 @@
 'use client';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
 
 const Projects = () => {
-    // Aquí puedes agregar más proyectos en el futuro
     const projects = [
         {
             title: "DIF Evaluativo",
-            description: "Software Interactivo para instancias Evaluativas. Es una plataforma ejecutable que funciona en la red local, diseñada para modernizar las evaluaciones escolares mediante una propuesta más dinámica, formal y sencilla. Su alcance abarca instituciones de nivel secundario, superior y universidades.",
-            tags: ["HTML", "CSS", "JavaScript", "Electron"],
-            image: "/Img/proyectos/proyecto-previa.png", // Nombre corregido
-            demoLink: "#",
-            repoLink: "#",
+            subtitle: "Software Interactivo para instancias Evaluativas.",
+            description: "DIF Evaluativo es una plataforma ejecutable que funciona en la red local, diseñada para modernizar las evaluaciones escolares mediante una propuesta mas dinámica, formal y sencilla. Surge como una alternativa ante las limitaciones de las evaluaciones tradicionales. Su alcance abarcara instituciones de nivel secundario, superior y universidades.",
+            tags: ["HTML", "CSS", "JavaScript", "[Otras tecnologías]"],
+            image: "/Img/proyectos/proyecto-previa.png", // Asegúrate de que esta ruta sea correcta
+            demoLink: "#"
         }
     ];
 
     return (
-        <section id="proyectos" className="w-full max-w-[1050px] px-6 py-24 scroll-mt-24">
+        <section id="proyectos" className="w-full max-w-[1050px] px-[20px] py-[80px] scroll-mt-[85px] text-center">
 
+            {/* Título de la Sección */}
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-center mb-16"
+                transition={{ duration: 0.5 }}
+                className="mb-[40px]"
             >
-                <h2 className="text-4xl font-heading font-bold text-primary mb-4 flex justify-center items-center gap-3">
-                    <FaCode /> Mis Proyectos
-                </h2>
-                <p className="text-subtext text-lg max-w-2xl mx-auto">
-                    Ejemplos de mis trabajos recientes, aplicando tecnologías modernas para resolver problemas reales.
+                <h2 className="text-[2.8rem] font-sans font-bold text-primary mb-[25px]">Mis Proyectos</h2>
+                <p className="text-[1.25rem] text-subtext leading-[1.8] mb-[40px] font-sans">
+                    Estoy trabajando en varios proyectos web. Próximamente vas a poder ver ejemplos aquí con enlaces y descripciones detalladas de cada uno, incluyendo las tecnologías utilizadas y los problemas que resuelven.
                 </p>
             </motion.div>
 
-            <div className="flex flex-col gap-16">
+            {/* Lista de Proyectos */}
+            <div className="flex flex-col gap-[20px]">
                 {projects.map((project, index) => (
                     <motion.div
                         key={index}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.5 }}
-                        className="bg-sidebar rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_10px_30px_rgba(74,144,226,0.2)] border border-white/5 transition-all duration-300"
+                        className="proyecto-item bg-sidebar rounded-[15px] p-[30px] shadow-[0_5px_15px_rgba(0,0,0,0.2)] hover:-translate-y-[8px] hover:shadow-[0_10px_25px_var(--color-Shadow)] transition-all duration-300 text-left"
                     >
-                        {/* Contenido Texto */}
-                        <div className="p-8 md:p-10 border-b border-white/5">
-                            <div className="flex justify-between items-start flex-wrap gap-4">
-                                <h3 className="text-3xl font-heading font-bold text-primary">{project.title}</h3>
+                        {/* Título del Proyecto */}
+                        <h3 className="text-[1.8rem] font-bold text-primary mb-[10px] font-sans">
+                            {project.title}
+                        </h3>
 
-                                {/* Links (Demo / Github) */}
-                                <div className="flex gap-4">
-                                    <a href={project.demoLink} className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg font-bold hover:bg-primary-hover transition-colors text-sm">
-                                        <FaExternalLinkAlt /> Ver Demo
-                                    </a>
-                                    {/* Descomenta esto si tienes el repo público
-                  <a href={project.repoLink} className="flex items-center gap-2 px-4 py-2 bg-[#40444B] text-white rounded-lg font-bold hover:bg-black transition-colors text-sm">
-                    <FaGithub /> Código
-                  </a>
-                  */}
-                                </div>
-                            </div>
+                        {/* Subtítulo / Descripción Corta */}
+                        <p className="text-[1.05rem] text-subtext leading-[1.6] mb-[5px] font-sans">
+                            <strong className="text-white">{project.subtitle}</strong>
+                        </p>
 
-                            <p className="mt-6 text-lg text-gray-300 leading-relaxed">
-                                {project.description}
-                            </p>
+                        {/* Descripción Larga */}
+                        <p className="text-[1.05rem] text-subtext leading-[1.6] mb-[5px] font-sans">
+                            {project.description}
+                        </p>
 
-                            {/* Etiquetas de Tecnología */}
-                            <div className="flex flex-wrap gap-3 mt-6">
-                                {project.tags.map((tag) => (
-                                    <span key={tag} className="px-3 py-1 bg-[#1A1A2E] text-primary text-sm font-semibold rounded-full border border-primary/30">
-                                        #{tag}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
+                        {/* Tecnologías */}
+                        <p className="text-[1.05rem] text-subtext leading-[1.6] mb-[15px] font-sans">
+                            <strong className="text-white">Tecnologías:</strong> {project.tags.join(", ")}
+                        </p>
 
                         {/* Imagen del Proyecto */}
-                        <div className="relative w-full h-[300px] md:h-[500px] bg-[#1A1A2E] group">
-                            {/* Overlay al hacer hover (opcional) */}
-                            <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-all duration-500 z-10" />
+                        <Image
+                            src={project.image}
+                            alt={project.title}
+                            width={700}
+                            height={400}
+                            className="proyecto-preview-img w-full max-w-[700px] h-auto rounded-[10px] border-[2px] border-primary mb-[20px] block mx-auto shadow-[0_4px_15px_rgba(0,0,0,0.2)]"
+                        />
 
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill // Esto hace que la imagen llene el contenedor automáticamente
-                                className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                            />
+                        {/* Enlaces */}
+                        <div className="proyecto-links mt-2">
+                            <a
+                                href={project.demoLink}
+                                target="_blank"
+                                className="text-primary font-bold font-sans hover:text-white transition-colors duration-300 mr-[15px]"
+                            >
+                                Ver Demo
+                            </a>
                         </div>
 
                     </motion.div>

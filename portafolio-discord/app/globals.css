@@ -2,45 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-bg: #1A1A2E;
-  --color-sidebar: #282A36;
-  --color-primary: #4A90E2;
-  --color-text: #FFFFFF;
-  --color-subtext: #B0B3BC;
-  --color-Shadow: #3C7DCF;
-  --color-hover: #2763ad;
+@layer base {
+
+  /* Tema Claro (Light Mode) */
+  :root {
+    --bg: #FDFBF7;
+    --sidebar: #FFFFFF;
+    --primary: #8B5CF6;
+    /* Violeta Pastel */
+    --text: #1F2937;
+    /* Gris Oscuro */
+    --subtext: #6B7280;
+    /* Gris Medio */
+
+    /* SOMBRA AZUL SOLICITADA EN AMBOS MODOS */
+    --shadow: #3C7DCF !important;
+
+    /* Alias de Compatibilidad (Legacy) */
+    --color-bg: var(--bg);
+    --color-sidebar: var(--sidebar);
+    --color-primary: var(--primary);
+    --color-text: var(--text);
+    --color-subtext: var(--subtext);
+    --color-Shadow: var(--shadow);
+
+    --font-inter: 'Inter', sans-serif;
+    --font-montserrat: 'Montserrat', sans-serif;
+  }
+
+  /* Tema Oscuro (Dark Mode) */
+  .dark {
+    --bg: #1A1A2E;
+    --sidebar: #282A36;
+    --primary: #4A90E2;
+    /* Azul Original */
+    --text: #FFFFFF;
+    /* Blanco */
+    --subtext: #B0B3BC;
+    /* Gris Claro */
+    --shadow: #3C7DCF !important;
+    /* Azul Neón */
+
+    /* Re-alias para modo oscuro */
+    --color-bg: var(--bg);
+    --color-sidebar: var(--sidebar);
+    --color-primary: var(--primary);
+    --color-text: var(--text);
+    --color-subtext: var(--subtext);
+    --color-Shadow: var(--shadow);
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-rubik);
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-}
-
-/* Scrollbar personalizada */
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  /* Ancho de la barra de desplazamiento */
-  height: 6px;
-  /* Altura de la barra de desplazamiento horizontal */
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-primary);
-  /* Color del "pulgar" */
-  border-radius: 6px;
-  /* Bordes redondeados */
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--color-sidebar);
-  /* Color del fondo de la barra */
-  border-radius: 6px;
-  /* Bordes redondeados */
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--sidebar);
+  border-radius: 20px;
+  border: 3px solid var(--bg);
 }
 
 /* Animaciones */
@@ -68,8 +110,4 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-section {
-  animation: fade 0.5s ease;
 }

@@ -1,50 +1,78 @@
 'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-import { FaHome, FaUserGraduate, FaHammer, FaCode, FaEnvelope } from 'react-icons/fa';
+import { Link as ScrollLink } from 'react-scroll';
+import { useState, useEffect } from 'react';
+import {
+    FaHome,
+    FaUserGraduate,
+    FaHammer,
+    FaCode,
+    FaEnvelope
+} from 'react-icons/fa';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar = () => {
     const [activeSection, setActiveSection] = useState('inicio');
 
-    const navLinks = [
-        { name: 'Inicio', href: '#inicio', icon: <FaHome /> },
-        { name: 'Formación', href: '#formacion', icon: <FaUserGraduate /> },
-        { name: 'Habilidades', href: '#habilidades', icon: <FaHammer /> },
-        { name: 'Proyectos', href: '#proyectos', icon: <FaCode /> },
-        { name: 'Contacto', href: '#contacto', icon: <FaEnvelope /> },
+    useEffect(() => {
+        const sections = document.querySelectorAll('section');
+        const handleScroll = () => {
+            let current = 'inicio';
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 150 && window.scrollY < sectionTop + sectionHeight - 150) {
+                    if (section.id) current = section.id;
+                }
+            });
+            setActiveSection(current);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const navItems = [
+        { name: 'Inicio', icon: <FaHome />, id: 'inicio' },
+        { name: 'Formación', icon: <FaUserGraduate />, id: 'formacion' },
+        { name: 'Habilidades', icon: <FaHammer />, id: 'habilidades' },
+        { name: 'Proyectos', icon: <FaCode />, id: 'proyectos' },
+        { name: 'Contacto', icon: <FaEnvelope />, id: 'contacto' },
     ];
 
     return (
-        // CAMBIO: 'justify-between' y 'max-w-6xl' para dar aire a los lados
-        <nav className="sticky top-0 z-50 w-full bg-sidebar/95 backdrop-blur-sm px-6 py-4 flex justify-between items-center shadow-lg border-b border-white/5">
+        <nav className="sticky top-0 z-[1000] w-full bg-sidebar flex justify-between items-center px-[20px] py-[5px] rounded-bl-[20px] rounded-br-[20px] shadow-[0_4px_15px_rgba(0,0,0,0.3)] flex-wrap gap-2 transition-colors duration-300">
 
-            {/* Logo */}
-            <h1 className="font-heading font-extrabold text-2xl md:text-3xl text-primary drop-shadow-[0_0_15px_rgba(74,144,226,0.5)]">
+            {/* Logo con Text Shadow exacto y Montserrat */}
+            <h1
+                className="font-heading font-extrabold text-[2rem] text-primary cursor-default select-none hover:-translate-y-[5px] transition-transform duration-300 py-[5px]"
+                style={{ textShadow: '0 0 10px var(--color-Shadow), 0 0 20px var(--color-Shadow)' }}
+            >
                 Ezequiel Milani
             </h1>
 
-            {/* Menú */}
-            <div className="flex gap-2 md:gap-4">
-                {navLinks.map((link) => {
-                    const isActive = activeSection === link.href.substring(1);
-                    return (
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            onClick={() => setActiveSection(link.href.substring(1))}
-                            className={`flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 rounded-xl transition-all duration-300
-                ${isActive
-                                    ? 'bg-primary/20 text-primary border border-primary/50 shadow-[0_0_10px_rgba(74,144,226,0.2)]' // Activo: Azul brillante
-                                    : 'text-gray-400 hover:text-white hover:bg-white/5' // Inactivo: Gris claro (se ve mejor en fondo oscuro)
-                                }`}
+            {/* Links + Toggle */}
+            <div className="flex items-center gap-[25px]">
+                <div className="flex gap-2">
+                    {navItems.map((item) => (
+                        <ScrollLink
+                            key={item.id}
+                            to={item.id}
+                            smooth={true}
+                            duration={500}
+                            className={`
+                flex items-center gap-[10px] p-[1rem] rounded-[20px] cursor-pointer transition-all duration-300 text-subtext font-sans
+                ${activeSection === item.id ? 'bg-[#40444B] text-primary' : 'hover:bg-[#40444B] hover:text-primary'}
+                `}
                         >
-                            <span className="text-xl">{link.icon}</span>
-                            {/* Texto oculto en móviles para ahorrar espacio */}
-                            <span className="hidden md:inline font-medium">{link.name}</span>
-                        </Link>
-                    );
-                })}
+                            <span className="text-[1.2rem] w-[20px] text-center flex justify-center">{item.icon}</span>
+                            <span className="font-medium">{item.name}</span>
+                        </ScrollLink>
+                    ))}
+                </div>
+
+                {/* Toggle Theme (A la derecha) */}
+                <ThemeToggle />
             </div>
+
         </nav>
     );
 };
