@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { FaHome, FaUserGraduate, FaHammer, FaCode, FaEnvelope } from 'react-icons/fa';
 
@@ -14,61 +14,36 @@ const Navbar = () => {
         { name: 'Contacto', href: '#contacto', icon: <FaEnvelope /> },
     ];
 
-    // Efecto para detectar el scroll y actualizar el link activo
-    useEffect(() => {
-        const handleScroll = () => {
-            const sections = document.querySelectorAll('section');
-            let current = '';
-
-            sections.forEach((section) => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop - 150 && window.scrollY < sectionTop + sectionHeight - 150) {
-                    current = section.getAttribute('id') || '';
-                }
-            });
-
-            if (current) setActiveSection(current);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
-    const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
-        e.preventDefault();
-        const targetId = href.substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-            setActiveSection(targetId);
-        }
-    };
-
     return (
-        <nav className="sticky top-0 z-[1000] w-full bg-sidebar px-5 py-[5px] flex justify-between items-center shadow-[0_4px_15px_rgba(0,0,0,0.3)] rounded-b-[20px] flex-wrap gap-2">
+        // CAMBIO: 'justify-between' y 'max-w-6xl' para dar aire a los lados
+        <nav className="sticky top-0 z-50 w-full bg-sidebar/95 backdrop-blur-sm px-6 py-4 flex justify-between items-center shadow-lg border-b border-white/5">
 
             {/* Logo */}
-            <h1 className="font-heading font-extrabold text-[2.5rem] tracking-normal text-primary cursor-default whitespace-nowrap transition-transform duration-300 hover:-translate-y-[5px] drop-shadow-[0_0_10px_#3C7DCF]">
+            <h1 className="font-heading font-extrabold text-2xl md:text-3xl text-primary drop-shadow-[0_0_15px_rgba(74,144,226,0.5)]">
                 Ezequiel Milani
             </h1>
 
-            <div className="flex gap-2 nav-links flex-wrap justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
-                {navLinks.map((link) => (
-                    <Link
-                        key={link.name}
-                        href={link.href}
-                        onClick={(e) => handleScrollTo(e, link.href)}
-                        className={`flex items-center gap-[10px] p-[1rem] rounded-[20px] transition-all duration-300
-              ${activeSection === link.href.substring(1)
-                                ? 'bg-[#40444B] text-primary'
-                                : 'text-subtext hover:bg-[#40444B] hover:text-primary'
-                            }`}
-                    >
-                        <span className="text-[1.2rem] w-[20px] text-center">{link.icon}</span>
-                        <span className="hidden sm:inline-block">{link.name}</span>
-                    </Link>
-                ))}
+            {/* Menú */}
+            <div className="flex gap-2 md:gap-4">
+                {navLinks.map((link) => {
+                    const isActive = activeSection === link.href.substring(1);
+                    return (
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            onClick={() => setActiveSection(link.href.substring(1))}
+                            className={`flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 rounded-xl transition-all duration-300
+                ${isActive
+                                    ? 'bg-primary/20 text-primary border border-primary/50 shadow-[0_0_10px_rgba(74,144,226,0.2)]' // Activo: Azul brillante
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5' // Inactivo: Gris claro (se ve mejor en fondo oscuro)
+                                }`}
+                        >
+                            <span className="text-xl">{link.icon}</span>
+                            {/* Texto oculto en móviles para ahorrar espacio */}
+                            <span className="hidden md:inline font-medium">{link.name}</span>
+                        </Link>
+                    );
+                })}
             </div>
         </nav>
     );
